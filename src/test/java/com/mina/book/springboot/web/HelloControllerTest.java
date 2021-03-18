@@ -1,4 +1,4 @@
-package com.mina.book.springboot;
+package com.mina.book.springboot.web;
 
 import com.mina.book.springboot.web.HelloController;
 import org.junit.Test;
