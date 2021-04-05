@@ -32,8 +32,11 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.data:spring-data-jdbc')
     compile('org.projectlombok:lombok')
+
     compile('org.postgresql:postgresql')
     compile('ch.qos.logback:logback-classic')
+
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
