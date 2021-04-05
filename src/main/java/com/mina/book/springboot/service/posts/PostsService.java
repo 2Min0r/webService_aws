@@ -2,6 +2,7 @@ package com.mina.book.springboot.service.posts;
 
 import com.mina.book.springboot.domain.posts.Posts;
 import com.mina.book.springboot.domain.posts.PostsRepository;
+import com.mina.book.springboot.web.dto.PostsListResponseDto;
 import com.mina.book.springboot.web.dto.PostsResponseDto;
 import com.mina.book.springboot.web.dto.PostsSaveRequestDto;
 import com.mina.book.springboot.web.dto.PostsUpdateRequestDto;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor        // @Autowired 대신 생성자를 주입받는 방식. final이 선언된 모든 필드의 생성자 생성 -> 유지보수 용이
 @Service
@@ -43,5 +45,20 @@ public class PostsService {
         List<Posts> postsList = postsRepository.findAll();
 
         return postsList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete (Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        postsRepository.delete(posts);
     }
 }
